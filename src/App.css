@@ -23,3 +23,17 @@
 .div-input input {
   width: 100%;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.grid-item {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 4px 2px;
+}

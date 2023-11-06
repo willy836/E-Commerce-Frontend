@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-black w-ful h-screen py-4 px-20">
+      <section className="bg-black w-ful h-full py-4 px-20">
         <HomePage />
       </section>
     </div>

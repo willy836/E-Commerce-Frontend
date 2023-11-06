@@ -15,7 +15,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search products"
-            className="p-2 rounded border focus:border-transparent focus:outline-none"
+            className="p-2 rounded border focus:border-gray-200 focus:outline-none"
           />
         </div>
         <div>
