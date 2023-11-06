@@ -1,0 +1,25 @@
+.cart {
+  display: block;
+  position: relative;
+}
+
+.cart-amount {
+  position: absolute;
+  top: -0.1rem;
+  right: -0.1rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-input {
+  width: 500px;
+}
+
+.div-input input {
+  width: 100%;
+}

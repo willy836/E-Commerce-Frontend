@@ -1,9 +1,14 @@
 import "./App.css";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold">E-COMMERCE APP</h1>
+      <Navbar />
+      <section className="bg-black w-ful h-screen py-4 px-20">
+        <HomePage />
+      </section>
     </div>
   );
 };
