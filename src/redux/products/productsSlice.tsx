@@ -18,6 +18,7 @@ export const getProductsData = createAsyncThunk(
 );
 
 type Product = {
+  name: string;
   id: string;
   user_id: number;
   category_id: number;
