@@ -53,9 +53,14 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, { payload }: PayloadAction<string>) => {
-      const item = state.productsData.find((product) => product.id === payload);
-      item!.amount = 1;
-      state.cartItems.push(item!);
+      const product = state.productsData.find(
+        (product) => product.id === payload
+      );
+      product!.amount = 1;
+      const index = state.cartItems.findIndex(
+        (item) => item.id === product!.id
+      );
+      if (index === -1) state.cartItems.push(product!);
     },
     removeItem: (state, { payload }: PayloadAction<string>) => {
       state.cartItems = state.cartItems.filter((product) => {
