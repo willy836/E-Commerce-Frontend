@@ -3,7 +3,7 @@ import { UserIcon } from "../icons";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center py-5 px-20">
+    <nav className="flex justify-between items-center py-5 px-20 nav-shadow">
       <h3
         className="text-2xl text-gray-600 uppercase font-bold"
         style={{ letterSpacing: "2px" }}
