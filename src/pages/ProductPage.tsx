@@ -41,7 +41,12 @@ const ProductPage = () => {
               </p>
             </div>
             <div className="w-full d-flex justify-center bg-orange-500 text-white p-3 rounded">
-              <button className=" block w-full uppercase">add to cart</button>
+              <button
+                className=" block w-full uppercase"
+                onClick={() => console.log("add to cart")}
+              >
+                add to cart
+              </button>
             </div>
           </div>
         </article>
