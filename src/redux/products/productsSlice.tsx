@@ -53,9 +53,9 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, { payload }: PayloadAction<string>) => {
-      state.cartItems = state.productsData.filter((product) => {
-        product.id === payload;
-      });
+      const item = state.productsData.find((product) => product.id === payload);
+      item!.amount = 1;
+      state.cartItems.push(item!);
     },
     removeItem: (state, { payload }: PayloadAction<string>) => {
       state.cartItems = state.cartItems.filter((product) => {
@@ -77,7 +77,7 @@ const productsSlice = createSlice({
       let itemsAmount = 0;
       let itemsTotal = 0;
 
-      state.productsData.forEach((product) => {
+      state.cartItems.forEach((product) => {
         itemsAmount += product.amount;
         itemsTotal += product.amount * product.price;
       });
