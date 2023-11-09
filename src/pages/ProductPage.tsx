@@ -25,9 +25,9 @@ const ProductPage = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <section className="bg-gray-100 w-full product-page">
+    <section className="bg-gray-100 w-full min-page-height">
       {product && (
-        <div className="py-10 px-32 product-page">
+        <div className="py-10 px-32 min-page-height">
           <article className="bg-white p-2 h-full flex gap-20 rounded mb-10">
             <div className="w-1/3">
               <img src={product.images[0]} alt={product.name} />

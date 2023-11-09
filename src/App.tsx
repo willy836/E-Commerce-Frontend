@@ -9,6 +9,8 @@ import {
   getProductsData,
 } from "./redux/products/productsSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CartPage from "./pages/CartPage";
+import Modal from "./components/Modal";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -22,13 +24,17 @@ const App = () => {
     dispatch(calculateTotals());
   }, [cartItems]);
 
+  const { isOpen } = useAppSelector((state) => state.modal);
+
   return (
     <main>
       <BrowserRouter>
+        {isOpen && <Modal />}
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/:productId" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </BrowserRouter>
     </main>

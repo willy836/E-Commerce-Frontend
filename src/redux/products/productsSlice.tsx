@@ -63,12 +63,9 @@ const productsSlice = createSlice({
       if (index === -1) state.cartItems.push(product!);
     },
     removeItem: (state, { payload }: PayloadAction<string>) => {
-      state.cartItems = state.cartItems.filter((product) => {
-        product.id !== payload;
-      });
-    },
-    clearCart: (state) => {
-      state.cartItems = [];
+      state.cartItems = state.cartItems.filter(
+        (product) => product.id !== payload
+      );
     },
     increase: (state, { payload }: PayloadAction<string>) => {
       const product = state.cartItems.find((product) => product.id === payload);
@@ -109,13 +106,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const {
-  addItem,
-  removeItem,
-  clearCart,
-  increase,
-  decrease,
-  calculateTotals,
-} = productsSlice.actions;
+export const { addItem, removeItem, increase, decrease, calculateTotals } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

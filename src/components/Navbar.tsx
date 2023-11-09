@@ -1,6 +1,7 @@
 import { useAppSelector } from "../hooks";
 import { CartIcon } from "../icons";
 import { UserIcon } from "../icons";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { amount } = useAppSelector((state) => state.products);
@@ -34,12 +35,14 @@ const Navbar = () => {
           <UserIcon />
           <p>Account</p>
         </div>
-        <div className="cart">
-          <CartIcon />
-          <div className="cart-amount bg-orange-500">
-            <p className="text-white">{amount}</p>
+        <Link to="/cart">
+          <div className="cart">
+            <CartIcon />
+            <div className="cart-amount bg-orange-500">
+              <p className="text-white">{amount}</p>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </nav>
   );
