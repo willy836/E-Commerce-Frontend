@@ -1,9 +1,14 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
 import { useEffect } from "react";
-import { useAppDispatch } from "./hooks";
-import { getProductsData } from "./redux/products/productsSlice";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import {
+  calculateTotals,
+  getProductsData,
+} from "./redux/products/productsSlice";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -12,16 +17,21 @@ const App = () => {
     dispatch(getProductsData());
   }, []);
 
-  // future code
-  // const { productsData } = useAppSelector((state) => state.products);
-  // useEffect(()=>{},[productsData])
+  const { cartItems } = useAppSelector((state) => state.products);
+  useEffect(() => {
+    dispatch(calculateTotals());
+  }, [cartItems]);
+
   return (
-    <div>
-      <Navbar />
-      <section className="bg-black w-ful h-full py-4 px-20">
-        <HomePage />
-      </section>
-    </div>
+    <main>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/:productId" element={<ProductPage />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
   );
 };
 

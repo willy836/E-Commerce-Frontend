@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type ProductProps = {
   name: string;
   id: string;
@@ -12,13 +14,16 @@ type ProductProps = {
 };
 
 const Product = (props: ProductProps) => {
-  const { images, name, price } = props;
+  const { id, images, name, price } = props;
+
   return (
-    <article className="grid-item">
-      <img src={images[0]} alt={name} />
-      <p className="text-sm">{name}</p>
-      <h4 className="font-bold text-gray-800">Ksh {price}</h4>
-    </article>
+    <Link to={`/${id}`}>
+      <article className="grid-item">
+        <img src={images[0]} alt={name} />
+        <p className="text-sm">{name}</p>
+        <h4 className="font-bold text-gray-800">Ksh {price}</h4>
+      </article>
+    </Link>
   );
 };
 
