@@ -1,8 +1,14 @@
-import { useAppSelector } from "../hooks";
+import { useAppSelector, useAppDispatch } from "../hooks";
 import { TrashIcon, PlusIcon, MinusIcon } from "../icons";
+import {
+  decrease,
+  increase,
+  removeItem,
+} from "../redux/products/productsSlice";
 
 const CartPage = () => {
   const { cartItems } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
   return (
     <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 min-page-height">
       <div className="w-3/4 min-page-height">
@@ -29,17 +35,28 @@ const CartPage = () => {
               </div>
               <div className="flex justify-between">
                 <div className="">
-                  <button className="flex gap-4 items-center uppercase text-orange-500 text-sm hover:bg-orange-200 p-2 rounded">
+                  <button
+                    onClick={() => dispatch(removeItem(id))}
+                    className="flex gap-4 items-center uppercase text-orange-500 text-sm hover:bg-orange-200 p-2 rounded"
+                  >
                     <TrashIcon />
                     remove
                   </button>
                 </div>
                 <div className="flex gap-5 items-center">
-                  <button>
+                  <button
+                    onClick={() => {
+                      if (amount === 1) {
+                        dispatch(removeItem(id));
+                        return;
+                      }
+                      dispatch(decrease(id));
+                    }}
+                  >
                     <MinusIcon />
                   </button>
                   <p>{amount}</p>
-                  <button>
+                  <button onClick={() => dispatch(increase(id))}>
                     <PlusIcon />
                   </button>
                 </div>
