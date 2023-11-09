@@ -2,10 +2,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.homepage {
-  min-height: 100vh;
-}
-
 .cart {
   display: block;
   position: relative;
@@ -55,6 +51,13 @@
   width: 30%;
 }
 
+.single-product + article::before {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #cfd8dc;
+  margin-bottom: 15px;
+}
+
 /* Modal */
 .modal-container {
   position: fixed;
@@ -74,8 +77,3 @@
   width: 80vw;
   max-width: 600px;
 }
-
-/* .close-btn {
-  font-size: 2rem;
-  cursor: pointer;
-} */

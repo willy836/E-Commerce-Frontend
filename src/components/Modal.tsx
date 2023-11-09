@@ -14,7 +14,7 @@ const Modal = () => {
             Remove from cart
           </h4>
           <span
-            className="close-btn font-medium text-4xl cursor-pointer"
+            className="font-medium text-4xl cursor-pointer"
             onClick={() => dispatch(closeModal())}
           >
             &times;

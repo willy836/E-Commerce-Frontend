@@ -6,17 +6,41 @@ import {
   removeItem,
 } from "../redux/products/productsSlice";
 import { openModal } from "../redux/modal/modalSlice";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
-  const { cartItems } = useAppSelector((state) => state.products);
+  const { cartItems, total, amount } = useAppSelector(
+    (state) => state.products
+  );
   const dispatch = useAppDispatch();
+  if (cartItems.length === 0) {
+    return (
+      <section className="bg-gray-100 w-full flex flex-col gap-5 py-10 px-20 min-page-height">
+        <div className="w-full bg-white flex flex-col gap-5 py-10 px-20 rounded">
+          <p className="font-semibold text-center">Your cart is empty!</p>
+          <p className="text-center">
+            Browse our products and discover the best deals!
+          </p>
+          <Link to="/">
+            <div className="text-center">
+              <button className="uppercase bg-orange-500 text-white py-3 px-5 rounded">
+                start shopping
+              </button>
+            </div>
+          </Link>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 min-page-height">
-      <div className="w-3/4 min-page-height">
+      <div className="w-3/4 h-full bg-white rounded">
+        <div className="text-xl p-2">Cart ({amount})</div>
+        <hr />
         {cartItems.map((item) => {
           const { id, name, images, quantity, price, amount } = item;
           return (
-            <article key={id} className="bg-white p-2 mb-2 rounded">
+            <article key={id} className="p-2  single-product">
               <div className="flex justify-between mb-2">
                 <div className="flex gap-8">
                   <div className="w-20">
@@ -74,7 +98,7 @@ const CartPage = () => {
           <hr />
           <div className="p-2 flex justify-between items-center">
             <p className="font-semibold capitalize text-gray-600">subtotal</p>
-            <p className="font-bold text-gray-900">Ksh 96988</p>
+            <p className="font-bold text-gray-900">Ksh {total}</p>
           </div>
           <p className="px-2 pb-2 text-gray-400 text-xs">
             Delivery fees not included yet.
@@ -94,7 +118,7 @@ const CartPage = () => {
           <hr />
           <div className="px-2 mt-2">
             <button className="bg-orange-500 text-white rounded w-full py-2">
-              CHECKOUT (Ksh 10000)
+              CHECKOUT (Ksh {total})
             </button>
           </div>
         </div>
