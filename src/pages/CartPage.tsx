@@ -5,6 +5,7 @@ import {
   increase,
   removeItem,
 } from "../redux/products/productsSlice";
+import { openModal } from "../redux/modal/modalSlice";
 
 const CartPage = () => {
   const { cartItems } = useAppSelector((state) => state.products);
@@ -36,7 +37,7 @@ const CartPage = () => {
               <div className="flex justify-between">
                 <div className="">
                   <button
-                    onClick={() => dispatch(removeItem(id))}
+                    onClick={() => dispatch(openModal(id))}
                     className="flex gap-4 items-center uppercase text-orange-500 text-sm hover:bg-orange-200 p-2 rounded"
                   >
                     <TrashIcon />

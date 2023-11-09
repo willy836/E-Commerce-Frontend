@@ -67,9 +67,6 @@ const productsSlice = createSlice({
         (product) => product.id !== payload
       );
     },
-    clearCart: (state) => {
-      state.cartItems = [];
-    },
     increase: (state, { payload }: PayloadAction<string>) => {
       const product = state.cartItems.find((product) => product.id === payload);
       product!.amount += 1;
@@ -109,13 +106,7 @@ const productsSlice = createSlice({
   },
 });
 
-export const {
-  addItem,
-  removeItem,
-  clearCart,
-  increase,
-  decrease,
-  calculateTotals,
-} = productsSlice.actions;
+export const { addItem, removeItem, increase, decrease, calculateTotals } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;
