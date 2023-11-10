@@ -37,6 +37,7 @@ type CartState = {
   cartItems: Product[];
   amount: number;
   total: number;
+  itemId: string | null;
   isLoading: boolean;
 };
 
@@ -45,6 +46,7 @@ const initialState: CartState = {
   cartItems: [],
   amount: 0,
   total: 0,
+  itemId: null,
   isLoading: false,
 };
 
@@ -87,6 +89,9 @@ const productsSlice = createSlice({
       state.amount = itemsAmount;
       state.total = itemsTotal;
     },
+    setItemId: (state, { payload }: PayloadAction<string>) => {
+      state.itemId = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,7 +111,13 @@ const productsSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, increase, decrease, calculateTotals } =
-  productsSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  increase,
+  decrease,
+  calculateTotals,
+  setItemId,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

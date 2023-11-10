@@ -4,7 +4,7 @@ import { removeItem } from "../redux/products/productsSlice";
 
 const Modal = () => {
   const dispatch = useAppDispatch();
-  const { itemId } = useAppSelector((state) => state.modal);
+  const { itemId } = useAppSelector((state) => state.products);
 
   return (
     <aside className="modal-container">

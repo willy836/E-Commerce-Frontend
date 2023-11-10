@@ -4,6 +4,7 @@ import {
   decrease,
   increase,
   removeItem,
+  setItemId,
 } from "../redux/products/productsSlice";
 import { openModal } from "../redux/modal/modalSlice";
 import { Link } from "react-router-dom";
@@ -61,7 +62,10 @@ const CartPage = () => {
               <div className="flex justify-between">
                 <div className="">
                   <button
-                    onClick={() => dispatch(openModal(id))}
+                    onClick={() => {
+                      dispatch(setItemId(id));
+                      dispatch(openModal());
+                    }}
                     className="flex gap-4 items-center uppercase text-orange-500 text-sm hover:bg-orange-200 p-2 rounded"
                   >
                     <TrashIcon />
