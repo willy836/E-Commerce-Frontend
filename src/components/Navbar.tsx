@@ -92,13 +92,13 @@ const Navbar = () => {
               <ChevronDown />
             </div>
             {showSignIn && (
-              <div className="bg-green-200 p-4 rounded sign-in">
+              <div className="mt-1 sign-in">
                 {user ? (
                   <form onSubmit={handleLogout}>
                     <div>
                       <button
                         type="submit"
-                        className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                        className="bg-orange-500 text-white text-sm uppercase px-8 py-2 rounded"
                       >
                         logout
                       </button>
@@ -107,7 +107,7 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to="login"
-                    className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                    className="bg-orange-500 text-white text-sm uppercase px-8 py-2 rounded"
                   >
                     sign in
                   </Link>

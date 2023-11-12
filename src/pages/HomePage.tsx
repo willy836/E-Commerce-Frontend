@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Hero from "../components/Hero";
 import Product from "../components/Product";
 import { useAppSelector } from "../hooks";
 
@@ -9,6 +10,7 @@ const HomePage = () => {
     <div>
       <Navbar />
       <section className="bg-black w-full min-page-height mt-20 py-4 px-20 homepage">
+        <Hero />
         <div className="bg-white min-page-height text-black grid-container">
           {!isLoading ? (
             productsData.map((product) => {
