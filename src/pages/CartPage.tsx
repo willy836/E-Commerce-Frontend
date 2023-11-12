@@ -19,7 +19,7 @@ const CartPage = () => {
     return (
       <div>
         <Navbar />
-        <section className="bg-gray-100 w-full flex flex-col gap-5 py-10 px-20 min-page-height">
+        <section className="bg-gray-100 w-full flex flex-col gap-5 py-10 px-20 mt-20 min-page-height">
           <div className="w-full bg-white flex flex-col gap-5 py-10 px-20 rounded">
             <p className="font-semibold text-center">Your cart is empty!</p>
             <p className="text-center">
@@ -40,7 +40,7 @@ const CartPage = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 min-page-height">
+      <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 mt-20 min-page-height">
         <div className="w-3/4 h-full bg-white rounded">
           <div className="text-xl p-2">Cart ({amount})</div>
           <hr />
