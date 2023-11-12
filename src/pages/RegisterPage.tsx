@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-// e: React.ChangeEvent<HTMLInputElement>
+
 const RegisterPage = () => {
   const navigate = useNavigate();
 
@@ -8,7 +8,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (name && email && password) {
       const newUser = { name, email, password };
@@ -18,7 +18,9 @@ const RegisterPage = () => {
           "https://tide-web-app.azurewebsites.net/api/register",
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify(newUser),
           }
         );
