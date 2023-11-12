@@ -1,10 +1,60 @@
+import { useState, useEffect, FormEvent } from "react";
 import { useAppSelector } from "../hooks";
-import { CartIcon } from "../icons";
-import { UserIcon } from "../icons";
+import { CartIcon, UserIcon, ChevronDown } from "../icons";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [user, setUser] = useState<string | null>(null);
   const { amount } = useAppSelector((state) => state.products);
+
+  const logout = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let token;
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const userObj = JSON.parse(userData);
+      token = userObj.token;
+    }
+
+    try {
+      const response = await fetch(
+        "https://tide-web-app.azurewebsites.net/api/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to logout user. Status ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error: unknown) {
+      throw error instanceof Error
+        ? new Error(`Failed to logout user. Error: ${error.message}`)
+        : new Error("Unknown error");
+    }
+  };
+
+  const handleLogout = (e: FormEvent<HTMLFormElement>) => {
+    logout(e);
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const userObj = JSON.parse(userData);
+      setUser(userObj.user);
+    }
+  }, []);
+
   return (
     <nav className="flex justify-between items-center py-5 px-20 nav-shadow">
       <h3
@@ -31,9 +81,38 @@ const Navbar = () => {
         </div>
       </form>
       <div className="flex gap-16 items-center">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
           <UserIcon />
-          <p>Account</p>
+          {user ? <p className="capitalize">Hi, {user}</p> : <p>Account</p>}
+          <div
+            className="chev-down"
+            onClick={() => setShowSignIn((prevState) => !prevState)}
+          >
+            <ChevronDown />
+          </div>
+          {showSignIn && (
+            <div className="bg-green-200 p-4 rounded sign-in">
+              {user ? (
+                <form onSubmit={handleLogout}>
+                  <div>
+                    <button
+                      type="submit"
+                      className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                    >
+                      logout
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <Link
+                  to="login"
+                  className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                >
+                  sign in
+                </Link>
+              )}
+            </div>
+          )}
         </div>
         <Link to="/cart">
           <div className="cart">
