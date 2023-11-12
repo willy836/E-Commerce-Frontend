@@ -86,3 +86,18 @@
   position: absolute;
   top: 4rem;
 }
+
+/* Hero */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 2s infinite;
+}
