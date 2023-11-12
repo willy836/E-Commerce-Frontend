@@ -56,74 +56,76 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex justify-between items-center py-5 px-20 nav-shadow">
-      <h3
-        className="text-2xl text-gray-600 uppercase font-bold"
-        style={{ letterSpacing: "2px" }}
-      >
-        #tide
-      </h3>
-      <form className="flex items-center gap-2">
-        <div className="div-input">
-          <input
-            type="text"
-            placeholder="Search products"
-            className="p-2 rounded border focus:border-gray-200 focus:outline-none"
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="bg-orange-500 text-white p-2 rounded uppercase"
-          >
-            search
-          </button>
-        </div>
-      </form>
-      <div className="flex gap-16 items-center">
-        <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
-          <UserIcon />
-          {user ? <p className="capitalize">Hi, {user}</p> : <p>Account</p>}
-          <div
-            className="chev-down"
-            onClick={() => setShowSignIn((prevState) => !prevState)}
-          >
-            <ChevronDown />
+    <header className="fixed top-0 left-0 w-full bg-white">
+      <nav className="flex justify-between items-center py-5 px-20 nav-shadow">
+        <h3
+          className="text-2xl text-gray-600 uppercase font-bold"
+          style={{ letterSpacing: "2px" }}
+        >
+          #tide
+        </h3>
+        <form className="flex items-center gap-2">
+          <div className="div-input">
+            <input
+              type="text"
+              placeholder="Search products"
+              className="p-2 rounded border focus:border-gray-200 focus:outline-none"
+            />
           </div>
-          {showSignIn && (
-            <div className="bg-green-200 p-4 rounded sign-in">
-              {user ? (
-                <form onSubmit={handleLogout}>
-                  <div>
-                    <button
-                      type="submit"
-                      className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
-                    >
-                      logout
-                    </button>
-                  </div>
-                </form>
-              ) : (
-                <Link
-                  to="login"
-                  className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
-                >
-                  sign in
-                </Link>
-              )}
-            </div>
-          )}
-        </div>
-        <Link to="/cart">
-          <div className="cart">
-            <CartIcon />
-            <div className="cart-amount bg-orange-500">
-              <p className="text-white">{amount}</p>
-            </div>
+          <div>
+            <button
+              type="submit"
+              className="bg-orange-500 text-white p-2 rounded uppercase"
+            >
+              search
+            </button>
           </div>
-        </Link>
-      </div>
-    </nav>
+        </form>
+        <div className="flex gap-16 items-center">
+          <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
+            <UserIcon />
+            {user ? <p className="capitalize">Hi, {user}</p> : <p>Account</p>}
+            <div
+              className="chev-down"
+              onClick={() => setShowSignIn((prevState) => !prevState)}
+            >
+              <ChevronDown />
+            </div>
+            {showSignIn && (
+              <div className="bg-green-200 p-4 rounded sign-in">
+                {user ? (
+                  <form onSubmit={handleLogout}>
+                    <div>
+                      <button
+                        type="submit"
+                        className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                      >
+                        logout
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <Link
+                    to="login"
+                    className="bg-orange-500 text-white uppercase px-4 py-2 rounded"
+                  >
+                    sign in
+                  </Link>
+                )}
+              </div>
+            )}
+          </div>
+          <Link to="/cart">
+            <div className="cart">
+              <CartIcon />
+              <div className="cart-amount bg-orange-500">
+                <p className="text-white">{amount}</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 };
 

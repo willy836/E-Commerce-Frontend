@@ -28,7 +28,7 @@ const ProductPage = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-gray-100 w-full min-page-height">
+      <section className="bg-gray-100 w-full mt-20 min-page-height">
         {product && (
           <div className="py-10 px-32 min-page-height">
             <article className="bg-white p-2 h-full flex gap-20 rounded mb-10">

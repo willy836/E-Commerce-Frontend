@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import Product from "../components/Product";
 import { useAppSelector } from "../hooks";
 
@@ -7,7 +8,7 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-black w-full min-page-height py-4 px-20 homepage">
+      <section className="bg-black w-full min-page-height mt-20 py-4 px-20 homepage">
         <div className="bg-white min-page-height text-black grid-container">
           {!isLoading ? (
             productsData.map((product) => {
@@ -18,6 +19,7 @@ const HomePage = () => {
           )}
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
