@@ -77,3 +77,12 @@
   width: 80vw;
   max-width: 600px;
 }
+
+.chev-down {
+  position: relative;
+}
+
+.sign-in {
+  position: absolute;
+  top: 4rem;
+}

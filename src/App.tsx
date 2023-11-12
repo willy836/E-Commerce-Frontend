@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import { useEffect } from "react";
@@ -11,6 +10,8 @@ import {
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import Modal from "./components/Modal";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -30,11 +31,12 @@ const App = () => {
     <main>
       <BrowserRouter>
         {isOpen && <Modal />}
-        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/:productId" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </main>
