@@ -13,6 +13,9 @@ const Dashboard = () => {
   const [sku, setSku] = useState("");
   const [weight, setWeight] = useState("");
 
+  const [flashMessage, setFlashMessage] = useState<string | null>(null);
+  const [showFlashMsg, setShowFlashMsg] = useState(false);
+
   const handleCreate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -61,6 +64,22 @@ const Dashboard = () => {
             `Failed to create the product. Status ${response.status}`
           );
         }
+
+        setFlashMessage("Product created successfully");
+        setShowFlashMsg(true);
+
+        setName("");
+        setCategoryId("");
+        setImages([]);
+        setPrice("");
+        setQuantity("");
+        setDescription("");
+        setSku("");
+        setWeight("");
+
+        setTimeout(() => {
+          setShowFlashMsg(false);
+        }, 5000);
       } catch (error: unknown) {
         throw error instanceof Error
           ? new Error(`Failed to create the product. Error: ${error.message}`)
@@ -112,6 +131,11 @@ const Dashboard = () => {
       </table>
       <div className="mt-4">
         <h3 className="capitalize text-xl mb-2">create</h3>
+        {showFlashMsg && (
+          <div className="bg-green-500 text-white p-1 rounded my-1">
+            {flashMessage}
+          </div>
+        )}
         <form onSubmit={handleCreate} className="w-full flex flex-col gap-2">
           <div>
             <input
