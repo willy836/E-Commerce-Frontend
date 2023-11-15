@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [showSignIn, setShowSignIn] = useState(false);
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<{ name: string; isAdmin: number } | null>(
+    null
+  );
   const { amount } = useAppSelector((state) => state.products);
 
   const logout = async (e: FormEvent<HTMLFormElement>) => {
@@ -81,10 +83,20 @@ const Navbar = () => {
             </button>
           </div>
         </form>
+        <Link
+          to="/dashboard"
+          className="uppercase text-blue-500 cursor-pointer"
+        >
+          dashboard
+        </Link>
         <div className="flex gap-16 items-center">
           <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
             <UserIcon />
-            {user ? <p className="capitalize">Hi, {user}</p> : <p>Account</p>}
+            {user ? (
+              <p className="capitalize">Hi, {user.name}</p>
+            ) : (
+              <p>Account</p>
+            )}
             <div
               className="chev-down"
               onClick={() => setShowSignIn((prevState) => !prevState)}

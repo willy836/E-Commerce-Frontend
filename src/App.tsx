@@ -12,6 +12,7 @@ import CartPage from "./pages/CartPage";
 import Modal from "./components/Modal";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </main>
