@@ -194,13 +194,51 @@ const Dashboard = () => {
     }
   };
 
-  const handleDelete = (e: FormEvent<HTMLFormElement>) => {
+  const handleDelete = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("delete");
+    const id = productId;
+
+    let token;
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const userObj = JSON.parse(userData);
+      token = userObj.token;
+    }
+
+    try {
+      const response = await fetch(
+        `https://tide-web-app.azurewebsites.net/api/products/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Failed to delete product. Status ${response.status}`);
+      }
+
+      setFlashMessage("Product deleted successfully");
+      setShowFlashMsg(true);
+      setTimeout(() => {
+        setShowFlashMsg(false);
+      }, 5000);
+    } catch (error: unknown) {
+      throw error instanceof Error
+        ? new Error(`Failed to delete product. Error: ${error.message}`)
+        : new Error("Unknown error");
+    }
   };
   return (
     <section className="py-7 px-5 dashboard min-page-height">
       <h1 className="uppercase text-center text-xl">Admin dashboard</h1>
+      {showFlashMsg && (
+        <div className="bg-green-500 text-white p-1 rounded my-1">
+          {flashMessage}
+        </div>
+      )}
       <h3 className="capitalize text-xl">products</h3>
       <table>
         <thead>
@@ -237,11 +275,6 @@ const Dashboard = () => {
       </table>
       <div className="mt-4">
         <h3 className="capitalize text-xl mb-2">create</h3>
-        {showFlashMsg && (
-          <div className="bg-green-500 text-white p-1 rounded my-1">
-            {flashMessage}
-          </div>
-        )}
         <form onSubmit={handleCreate} className="w-full flex flex-col gap-2">
           <div>
             <input
@@ -351,11 +384,6 @@ const Dashboard = () => {
       </div>
       <div className="mt-4">
         <h3 className="capitalize text-xl mb-2">update</h3>
-        {showFlashMsg && (
-          <div className="bg-green-500 text-white p-1 rounded my-1">
-            {flashMessage}
-          </div>
-        )}
         <form onSubmit={handleUpdate} className="w-full flex flex-col gap-2">
           <div>
             <input
