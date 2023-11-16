@@ -45,7 +45,7 @@ const CartPage = () => {
           <div className="text-xl p-2">Cart ({amount})</div>
           <hr />
           {cartItems.map((item) => {
-            const { id, name, images, quantity, price, amount } = item;
+            const { id, name, images, quantity, price } = item;
             return (
               <article key={id} className="p-2  single-product">
                 <div className="flex justify-between mb-2">

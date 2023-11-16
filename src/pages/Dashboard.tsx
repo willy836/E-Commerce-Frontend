@@ -1,9 +1,23 @@
 import { useState, FormEvent } from "react";
 import { useAppSelector } from "../hooks";
 
+type Product = {
+  name: string;
+  id: string;
+  user_id: string;
+  category_id: string;
+  images: string[];
+  description: string;
+  price: string;
+  quantity: string;
+  sku: string;
+  weight: string;
+};
+
 const Dashboard = () => {
   const { productsData } = useAppSelector((state) => state.products);
 
+  // State for create product
   const [name, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -15,6 +29,18 @@ const Dashboard = () => {
 
   const [flashMessage, setFlashMessage] = useState<string | null>(null);
   const [showFlashMsg, setShowFlashMsg] = useState(false);
+
+  // State for update product
+  const [updateName, setUpdateName] = useState("");
+  const [updateCategoryId, setUpdateCategoryId] = useState("");
+  const [updateImages, setUpdateImages] = useState<string[]>([]);
+  const [updatePrice, setUpdatePrice] = useState("");
+  const [updateQuantity, setUpdateQuantity] = useState("");
+  const [updateDescription, setUpdateDescription] = useState("");
+  const [updateSku, setUpdateSku] = useState("");
+  const [updateWeight, setUpdateWeight] = useState("");
+  const [productId, setProductId] = useState<string | null>(null);
+  const [selectItem, setSelectItem] = useState<Product | null>(null);
 
   const handleCreate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,6 +114,86 @@ const Dashboard = () => {
     }
   };
 
+  // Select clicked product to be updated
+  const selectProduct = (product: Product) => {
+    setSelectItem(product);
+    setProductId(product.id);
+
+    setUpdateName(product.name);
+    setUpdateCategoryId(product.category_id);
+    setUpdateImages(product.images);
+    setUpdatePrice(product.price);
+    setUpdateQuantity(product.quantity);
+    setUpdateDescription(product.description);
+    setUpdateSku(product.sku);
+    setUpdateWeight(product.weight);
+  };
+
+  const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const id = productId;
+
+    let token;
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const userObj = JSON.parse(userData);
+      token = userObj.token;
+    }
+
+    if (selectItem) {
+      const product = {
+        name: updateName,
+        category_id: updateCategoryId,
+        images: updateImages,
+        price: updatePrice,
+        quantity: updateQuantity,
+        description: updateDescription,
+        sku: updateSku,
+        weight: updateWeight,
+      };
+
+      try {
+        const response = await fetch(
+          `https://tide-web-app.azurewebsites.net/api/products/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(product),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to update product. Status ${response.status}`
+          );
+        }
+
+        setFlashMessage("Product updated successfully");
+        setShowFlashMsg(true);
+
+        setUpdateName("");
+        setUpdateCategoryId("");
+        setUpdateImages([]);
+        setUpdatePrice("");
+        setUpdateQuantity("");
+        setUpdateDescription("");
+        setUpdateSku("");
+        setUpdateWeight("");
+
+        setTimeout(() => {
+          setShowFlashMsg(false);
+        }, 5000);
+      } catch (error: unknown) {
+        throw error instanceof Error
+          ? new Error(`Failed to update the product. Error: ${error.message}`)
+          : new Error("Unknown error");
+      }
+    }
+  };
+
   const handleDelete = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("delete");
@@ -115,7 +221,7 @@ const Dashboard = () => {
                 <td className="px-2">{name}</td>
                 <td className="px-2">Ksh {price}</td>
                 <td className="text-center text-blue-500">
-                  <button className="">update</button>
+                  <button onClick={() => selectProduct(product)}>update</button>
                 </td>
                 <td className="text-center text-red-600">
                   <form onSubmit={handleDelete}>
@@ -245,19 +351,34 @@ const Dashboard = () => {
       </div>
       <div className="mt-4">
         <h3 className="capitalize text-xl mb-2">update</h3>
-        <form className="w-full flex flex-col gap-2">
+        {showFlashMsg && (
+          <div className="bg-green-500 text-white p-1 rounded my-1">
+            {flashMessage}
+          </div>
+        )}
+        <form onSubmit={handleUpdate} className="w-full flex flex-col gap-2">
           <div>
             <input
               type="text"
               name="name"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Product name"
+              value={updateName}
+              onChange={(e) => {
+                setUpdateName(e.target.value);
+              }}
             />
           </div>
           <div>
             <input
-              type="number"
+              type="text"
               name="category_id"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Category ID"
+              value={updateCategoryId}
+              onChange={(e) => {
+                setUpdateCategoryId(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -265,13 +386,37 @@ const Dashboard = () => {
               type="text"
               name="images"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Images URL(s) separated by commas"
+              value={updateImages}
+              onChange={(e) => {
+                setUpdateImages(
+                  e.target.value.split(",").map((url) => url.trim())
+                );
+              }}
             />
           </div>
           <div>
             <input
-              type="number"
+              type="text"
               name="price"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Price"
+              value={updatePrice}
+              onChange={(e) => {
+                setUpdatePrice(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="quantity"
+              className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Quantity"
+              value={updateQuantity}
+              onChange={(e) => {
+                setUpdateQuantity(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -279,6 +424,11 @@ const Dashboard = () => {
               type="text"
               name="description"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Description"
+              value={updateDescription}
+              onChange={(e) => {
+                setUpdateDescription(e.target.value);
+              }}
             />
           </div>
           <div>
@@ -286,13 +436,23 @@ const Dashboard = () => {
               type="text"
               name="sku"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="SKU"
+              value={updateSku}
+              onChange={(e) => {
+                setUpdateSku(e.target.value);
+              }}
             />
           </div>
           <div>
             <input
-              type="decimal"
+              type="string"
               name="weight"
               className="border border-gray-400 bg-gray-700 text-gray-200 rounded p-1 w-full"
+              placeholder="Weight (Kg)"
+              value={updateWeight}
+              onChange={(e) => {
+                setUpdateWeight(e.target.value);
+              }}
             />
           </div>
           <div>
