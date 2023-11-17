@@ -7,7 +7,7 @@ import {
   setItemId,
 } from "../redux/products/productsSlice";
 import { openModal } from "../redux/modal/modalSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const CartPage = () => {
@@ -17,6 +17,18 @@ const CartPage = () => {
     amount: cartAmount,
   } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      navigate("/checkout");
+    } else {
+      navigate("/login");
+    }
+  };
+
   if (cartItems.length === 0) {
     return (
       <div>
@@ -129,7 +141,10 @@ const CartPage = () => {
             </div>
             <hr />
             <div className="px-2 mt-2">
-              <button className="bg-orange-500 text-white rounded w-full py-2">
+              <button
+                className="bg-orange-500 text-white rounded w-full py-2"
+                onClick={handleCheckout}
+              >
                 CHECKOUT (Ksh {total})
               </button>
             </div>
