@@ -6,12 +6,12 @@ import Navbar from "../components/Navbar";
 type ProductProps = {
   name: string;
   id: string;
-  user_id: number;
-  category_id: number;
+  user_id: string;
+  category_id: string;
   images: string[];
   description: string;
-  price: number;
-  quantity: number;
+  price: string;
+  quantity: string;
   sku: string;
   weight: string;
 };

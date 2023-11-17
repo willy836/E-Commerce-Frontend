@@ -3,19 +3,31 @@ import { useAppSelector } from "../hooks";
 import { CartIcon, UserIcon, ChevronDown } from "../icons";
 import { Link } from "react-router-dom";
 
+type User = {
+  token: string;
+  user: {
+    name: string;
+    isAdmin: number;
+  };
+};
+
 const Navbar = () => {
   const [showSignIn, setShowSignIn] = useState(false);
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<{ name: string; isAdmin: number } | null>(
+    null
+  );
   const { amount } = useAppSelector((state) => state.products);
 
+  let token: string | undefined;
+  let isAdmin: number | undefined;
+  const userData = localStorage.getItem("user");
+  if (userData) {
+    const userObj: User = JSON.parse(userData);
+    token = userObj.token;
+    isAdmin = userObj.user.isAdmin;
+  }
   const logout = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let token;
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      const userObj = JSON.parse(userData);
-      token = userObj.token;
-    }
 
     try {
       const response = await fetch(
@@ -81,10 +93,22 @@ const Navbar = () => {
             </button>
           </div>
         </form>
+        {isAdmin === 1 && (
+          <Link
+            to="/dashboard"
+            className="uppercase text-blue-500 cursor-pointer"
+          >
+            dashboard
+          </Link>
+        )}
         <div className="flex gap-16 items-center">
           <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
             <UserIcon />
-            {user ? <p className="capitalize">Hi, {user}</p> : <p>Account</p>}
+            {user ? (
+              <p className="capitalize">Hi, {user.name}</p>
+            ) : (
+              <p>Account</p>
+            )}
             <div
               className="chev-down"
               onClick={() => setShowSignIn((prevState) => !prevState)}

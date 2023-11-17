@@ -7,14 +7,28 @@ import {
   setItemId,
 } from "../redux/products/productsSlice";
 import { openModal } from "../redux/modal/modalSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const CartPage = () => {
-  const { cartItems, total, amount } = useAppSelector(
-    (state) => state.products
-  );
+  const {
+    cartItems,
+    total,
+    amount: cartAmount,
+  } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      navigate("/checkout");
+    } else {
+      navigate("/login");
+    }
+  };
+
   if (cartItems.length === 0) {
     return (
       <div>
@@ -42,7 +56,7 @@ const CartPage = () => {
       <Navbar />
       <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 mt-20 min-page-height">
         <div className="w-3/4 h-full bg-white rounded">
-          <div className="text-xl p-2">Cart ({amount})</div>
+          <div className="text-xl p-2">Cart ({cartAmount})</div>
           <hr />
           {cartItems.map((item) => {
             const { id, name, images, quantity, price, amount } = item;
@@ -127,7 +141,10 @@ const CartPage = () => {
             </div>
             <hr />
             <div className="px-2 mt-2">
-              <button className="bg-orange-500 text-white rounded w-full py-2">
+              <button
+                className="bg-orange-500 text-white rounded w-full py-2"
+                onClick={handleCheckout}
+              >
                 CHECKOUT (Ksh {total})
               </button>
             </div>

@@ -101,3 +101,36 @@
 .animate-wiggle {
   animation: wiggle 2s infinite;
 }
+
+/* Admin dashboard */
+.dashboard {
+  background-color: #1d2634;
+  color: #9e9ea4;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+/* Checkout page */
+@keyframes expandContract {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.animate-text {
+  animation: expandContract 10s infinite;
+  background: linear-gradient(45deg, #ff8a00, #e52e71);
+}
