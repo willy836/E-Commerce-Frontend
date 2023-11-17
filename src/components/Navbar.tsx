@@ -3,6 +3,14 @@ import { useAppSelector } from "../hooks";
 import { CartIcon, UserIcon, ChevronDown } from "../icons";
 import { Link } from "react-router-dom";
 
+type User = {
+  token: string;
+  user: {
+    name: string;
+    isAdmin: number;
+  };
+};
+
 const Navbar = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [user, setUser] = useState<{ name: string; isAdmin: number } | null>(
@@ -10,14 +18,16 @@ const Navbar = () => {
   );
   const { amount } = useAppSelector((state) => state.products);
 
+  let token: string | undefined;
+  let isAdmin: number | undefined;
+  const userData = localStorage.getItem("user");
+  if (userData) {
+    const userObj: User = JSON.parse(userData);
+    token = userObj.token;
+    isAdmin = userObj.user.isAdmin;
+  }
   const logout = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let token;
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      const userObj = JSON.parse(userData);
-      token = userObj.token;
-    }
 
     try {
       const response = await fetch(
@@ -83,12 +93,14 @@ const Navbar = () => {
             </button>
           </div>
         </form>
-        <Link
-          to="/dashboard"
-          className="uppercase text-blue-500 cursor-pointer"
-        >
-          dashboard
-        </Link>
+        {isAdmin === 1 && (
+          <Link
+            to="/dashboard"
+            className="uppercase text-blue-500 cursor-pointer"
+          >
+            dashboard
+          </Link>
+        )}
         <div className="flex gap-16 items-center">
           <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-200 p-2 rounded">
             <UserIcon />
