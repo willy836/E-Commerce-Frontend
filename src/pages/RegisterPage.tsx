@@ -15,7 +15,7 @@ const RegisterPage = () => {
 
       try {
         const response = await fetch(
-          "https://tide-web-app.azurewebsites.net/api/register",
+          "https://tidecommerce.chickenkiller.com/api/register",
           {
             method: "POST",
             headers: {

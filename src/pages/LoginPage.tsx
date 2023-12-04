@@ -12,7 +12,7 @@ const LoginPage = () => {
       const user = { email, password };
       try {
         const response = await fetch(
-          "https://tide-web-app.azurewebsites.net/api/login",
+          "https://tidecommerce.chickenkiller.com/api/login",
           {
             method: "POST",
             headers: {
