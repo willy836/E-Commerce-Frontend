@@ -69,19 +69,19 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white">
-      <nav className="flex justify-between items-center py-5 px-20 nav-shadow">
+      <nav className="flex justify-between items-center py-5 px-5 sm:px-20 nav-shadow">
         <h3
           className="text-2xl text-gray-600 uppercase font-bold"
           style={{ letterSpacing: "2px" }}
         >
           #tide
         </h3>
-        <form className="flex items-center gap-2">
-          <div className="div-input">
+        <form className="hidden md:flex items-center gap-2 nav-form">
+          <div className="flex-grow">
             <input
               type="text"
               placeholder="Search products"
-              className="p-2 rounded border focus:border-gray-200 focus:outline-none"
+              className="w-full p-2 rounded border focus:border-gray-200 focus:outline-none"
             />
           </div>
           <div>

@@ -33,8 +33,8 @@ const CartPage = () => {
     return (
       <div>
         <Navbar />
-        <section className="bg-gray-100 w-full flex flex-col gap-5 py-10 px-20 mt-20 min-page-height">
-          <div className="w-full bg-white flex flex-col gap-5 py-10 px-20 rounded">
+        <section className="bg-gray-100 w-full flex flex-col gap-5 py-5 sm:py-10 px-5 sm:px-20 mt-20 min-page-height">
+          <div className="w-full bg-white flex flex-col gap-5 py-5 sm:py-10 px-5 sm:px-20 rounded">
             <p className="font-semibold text-center">Your cart is empty!</p>
             <p className="text-center">
               Browse our products and discover the best deals!
@@ -54,8 +54,8 @@ const CartPage = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-gray-100 w-full flex gap-5 py-10 px-20 mt-20 min-page-height">
-        <div className="w-3/4 h-full bg-white rounded">
+      <section className="bg-gray-100 w-full flex flex-col sm:flex-row gap-5 py-5 sm:py-10 px-5 sm:px-20 mt-20 min-page-height">
+        <div className="w-full sm:w-3/4 h-full bg-white rounded">
           <div className="text-xl p-2">Cart ({cartAmount})</div>
           <hr />
           {cartItems.map((item) => {
@@ -114,7 +114,7 @@ const CartPage = () => {
             );
           })}
         </div>
-        <div className="w-1/4 ">
+        <div className="w-full sm:w-1/4 ">
           <div className="bg-white mb-5 py-2 rounded">
             <h3 className="px-2 uppercase font-semibold text-gray-600">
               cart summary

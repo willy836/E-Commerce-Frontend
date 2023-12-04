@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-const url = "https://tide-web-app.azurewebsites.net/api/products";
+const url = "https://tidecommerce.chickenkiller.com/api/products";
 
 export const getProductsData = createAsyncThunk(
   "products/getProductsData",

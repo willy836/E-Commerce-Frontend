@@ -74,7 +74,7 @@ const Dashboard = () => {
       };
       try {
         const response = await fetch(
-          "https://tide-web-app.azurewebsites.net/api/products",
+          "https://tidecommerce.chickenkiller.com/api/products",
           {
             method: "POST",
             headers: {
@@ -154,7 +154,7 @@ const Dashboard = () => {
 
       try {
         const response = await fetch(
-          `https://tide-web-app.azurewebsites.net/api/products/${id}`,
+          `https://tidecommerce.chickenkiller.com/api/products/${id}`,
           {
             method: "PATCH",
             headers: {
@@ -207,7 +207,7 @@ const Dashboard = () => {
 
     try {
       const response = await fetch(
-        `https://tide-web-app.azurewebsites.net/api/products/${id}`,
+        `https://tidecommerce.chickenkiller.com/api/products/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -12,7 +12,7 @@ const LoginPage = () => {
       const user = { email, password };
       try {
         const response = await fetch(
-          "https://tide-web-app.azurewebsites.net/api/login",
+          "https://tidecommerce.chickenkiller.com/api/login",
           {
             method: "POST",
             headers: {
@@ -42,9 +42,9 @@ const LoginPage = () => {
       <p className="font-light mb-4">Login or create a Tide acount</p>
       <form
         onSubmit={handleSubmit}
-        className="w-full flex flex-col gap-3 justify-center items-center"
+        className="auth-form flex flex-col gap-3 justify-center items-center"
       >
-        <div className="w-1/3">
+        <div className="w-2/3 sm:w-full">
           <input
             className="border border-gray-400 rounded p-2 w-full"
             type="email"
@@ -54,7 +54,7 @@ const LoginPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="w-1/3">
+        <div className="w-2/3 sm:w-full">
           <input
             className="border border-gray-400 rounded p-2 w-full"
             type="password"
@@ -64,9 +64,9 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="w-full text-center">
+        <div className="w-2/3 sm:w-full text-center">
           <button
-            className="bg-orange-500 text-white uppercase rounded p-3 w-1/3"
+            className="bg-orange-500 text-white uppercase rounded p-3 w-full"
             type="submit"
           >
             login

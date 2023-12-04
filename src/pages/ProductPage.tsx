@@ -30,12 +30,16 @@ const ProductPage = () => {
       <Navbar />
       <section className="bg-gray-100 w-full mt-20 min-page-height">
         {product && (
-          <div className="py-10 px-32 min-page-height">
-            <article className="bg-white p-2 h-full flex gap-20 rounded mb-10">
-              <div className="w-1/3">
-                <img src={product.images[0]} alt={product.name} />
+          <div className="py-5 px-5 sm:py-10 sm:px-32 min-page-height">
+            <article className="bg-white p-2 h-full flex flex-col sm:flex-row gap-20 rounded mb-10">
+              <div className="w-full sm:w-1/3">
+                <img
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="mx-auto sm:mx-0"
+                />
               </div>
-              <div className="w-2/3 py-4 flex flex-col justify-between">
+              <div className="w-full sm:w-2/3 py-4 flex flex-col justify-between">
                 <div>
                   <h3 className="text-xl py-1">{product.name}</h3>
                   <p className="py-1 mb-2">Category: {product.category_id}</p>

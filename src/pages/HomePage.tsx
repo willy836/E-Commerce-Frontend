@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <section className="bg-black w-full min-page-height mt-20 py-4 px-20 homepage">
+      <section className="bg-black w-full min-page-height mt-20 py-4 px-5 sm:px-20 homepage">
         <Hero />
         <div className="bg-white min-page-height text-black grid-container">
           {!isLoading ? (
